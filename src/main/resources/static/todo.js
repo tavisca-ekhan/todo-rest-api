@@ -1,6 +1,50 @@
 'use strict'
 
-let data = JSON.parse(localStorage.data);
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, false); // true for asynchronous
+    xmlHttp.send(null);
+}
+
+function httpPatchAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("PATCH", theUrl, false); // true for asynchronous
+        xmlHttp.setRequestHeader("content-type","application/json");
+        xmlHttp.send(null);
+}
+
+function httpPostAsync(theUrl,dataSend, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("POST", theUrl, false); // true for asynchronous
+    xmlHttp.setRequestHeader("content-type","application/json");
+    xmlHttp.send(dataSend);
+}
+
+function httpDeleteAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("DELETE", theUrl, false); // true for asynchronous
+    xmlHttp.send(null);
+}
+
 
 // Basic Page Switching Code
 function loadHome(){
@@ -53,16 +97,22 @@ function loadAbout(){
 
 // Main Code
 
+let data;
+
 function populateTable(){
     let htmlCode = '';
+    httpGetAsync('/todo',(json)=>{
+                data = JSON.parse(json);
+            })
     data.forEach(element => {
         htmlCode += `<tr>
                         <td>${element.item}</td>
-                        <td><button onclick="editItemWizard(${data.indexOf(element)})">Edit</button> <button onclick="removeItem(${data.indexOf(element)})">Remove</button></td>
+                        <td><button onclick="editItemWizard(${element.id})">Edit</button> <button onclick="removeItem(${element.id})">Remove</button></td>
                     </tr>`
     });
     document.getElementById("entry-table").innerHTML = htmlCode;
 }
+
 function editItemWizard(id){
     document.getElementById("entries-container").innerHTML =   `<h5>Edit Item Wizard:</h5>
                                                                 <input type="text" id="edit-item">
@@ -72,14 +122,14 @@ function editItemWizard(id){
 
 function editItem(id){
     let newValue = document.getElementById("edit-item").value;
-    data[id] = {item : newValue}
-    localStorage.data = JSON.stringify(data);
+    httpPatchAsync(`/todo/${id}?item=${newValue}`, console.log);
     loadHome();
 }
 
 function removeItem(id){
-    data.splice(id,1);
-    localStorage.data = JSON.stringify(data);
+//    data.splice(id,1);
+//    localStorage.data = JSON.stringify(data);
+    httpDeleteAsync(`/todo/${id}`,console.log);
     loadHome();
 }
 
@@ -114,7 +164,7 @@ function searchBoxQuery()
     list.forEach(element => {
         htmlCode += `<tr>
                         <td>${element.item}</td>
-                        <td><button onclick="editItemWizard(${data.indexOf(element)})">Edit</button> <button onclick="removeItem(${data.indexOf(element)})">Remove</button></td>
+                        <td><button onclick="editItemWizard(${element.id})">Edit</button> <button onclick="removeItem(${element.id})">Remove</button></td>
                     </tr>`
     });
     document.getElementById("entry-table").innerHTML = htmlCode;
@@ -122,9 +172,15 @@ function searchBoxQuery()
 
 function addItem(){
     let item = document.getElementById('search-box').value
-    data[data.length] = {item: item};
-    localStorage.data = JSON.stringify(data);
-    loadHome();
+    // data[data.length] = {item: item};
+    // localStorage.data = JSON.stringify(data);
+    // loadHome();
+    if (item == "") {
+        alert("Please enter any Item");
+    } else {
+        httpPostAsync('/todo',`{"item":"${item}"}`,console.log)
+        loadHome();
+    }
 }
 
 window.addEventListener("load", function() {

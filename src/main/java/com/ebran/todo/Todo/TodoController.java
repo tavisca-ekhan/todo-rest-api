@@ -41,4 +41,9 @@ public class TodoController {
     public void deleteItem(@PathVariable int id) {
         Todo item = service.deleteOneById(id);
     }
+
+    @PatchMapping("/todo/{id}")
+    public void editItem(@PathVariable int id, @RequestParam String item) {
+        service.editOneById(id, item);
+    }
 }
