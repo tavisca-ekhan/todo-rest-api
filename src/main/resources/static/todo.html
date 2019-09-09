@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="todo.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body >
+<header>
+    <div id="header-left">
+        <img src="todo.jpg" alt="TO-DO"/>
+    </div>
+    <div id="header-right">
+        Welcome To Custom TO_DO LIST
+    </div>
+</header>
+<div id="main">
+    <div id="menu">
+        <button onclick="loadHome()">TO_DO</button>
+        <button id="special" onclick="loadUses()">Uses</button>
+        <button  onclick="loadAbout()">About</button>
+    </div>
+    <div id="entries-container">
+        <div id="search-section">
+            <!-- contains search box and add button -->
+            Search And Add
+            <input class="pad" type="text" id="search-box" >
+
+            <button class="pad" id="add-button" disabled="disabled" onclick="addItem()">ADD</button>
+
+        </div>
+        <div id="entries">
+            <!-- Entries and Actions Table Here -->
+
+            <table id="table-container">
+
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="entry-table">
+
+                </tbody>
+
+            </table>
+            <script>
+                        populateTable();
+                </script>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
