@@ -23,10 +23,17 @@ public class TodoService {
     }
 
     public Todo findOneById(int id) {
-        for (Todo todo : items) {
-            if (todo.getId() == id)
-                return todo;
+        Iterator<Todo> iterator = items.iterator();
+
+        while (iterator.hasNext()) {
+            Todo item = iterator.next();
+            if (item.getId() == id)
+                return item;
         }
+//        for (Todo todo : items) {
+//            if (todo.getId() == id)
+//                return todo;
+//        }
         return null;
     }
 
@@ -50,16 +57,20 @@ public class TodoService {
         return item;
     }
 
-    public Todo deleteOneById(int id) {
+    public boolean deleteOneById(int id) {
         Iterator<Todo> iterator = items.iterator();
 
         while (iterator.hasNext()) {
             Todo item = iterator.next();
             if (item.getId() == id) {
                 iterator.remove();
-                return item;
+                return true;
             }
         }
-        return null;
+        return false;
+    }
+
+    public String createError(String message) {
+        return message;
     }
 }
