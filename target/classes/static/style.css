@@ -1,0 +1,136 @@
+html,
+body {
+    height: 100%;
+    border-width:5px;
+    border-style:outset;
+    min-width: 440px;
+    min-height: 420px;
+}
+ul{
+    list-style-type:none;
+}
+*{
+    box-sizing: border-box;
+}
+
+input[type=text] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 0px 10px;
+    box-sizing: border-box;
+    border: 2px solid red;
+    border-radius: 4px;
+  }
+
+.pad{
+    margin: 15px 30px;
+}
+
+header{
+    width: 100%;
+    height:10%;
+    overflow: hidden;
+    border:2px dotted blue;
+}
+img{
+    height:40px;
+    width:30px;
+}
+#header-left{
+    width: 20%;
+    float: left;
+    border:2px dotted yellow;
+}
+#header-right{
+    height: 100%;
+    width:80%;
+    float: left;
+    padding : 10px 2px;
+    border:2px dotted yellow;
+}
+
+/*
+    * Main Container Work begins here
+*/
+#main button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  #menu button {
+    background-color: rgba(92, 154, 206, 0.637); /* Green */
+    min-width: 60px;
+    height: 50px;
+    width: 40%;
+    color: white;
+    margin: 15px 10%;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+  }
+
+#main{
+    height: 90%;
+    width:100%;
+    /* overflow: hidden; */
+    border:2px dotted yellow;
+}
+
+#menu{
+    height:100%;
+    width:20%;
+    float: left;
+    border:2px dotted yellow;
+}
+
+
+  button:disabled,
+  button[disabled]{
+    background-color:red;
+}
+
+#entries-container{
+    overflow:scroll;
+}
+#entries-container{
+    height: 100%;
+    width: 80%;
+    float: left;
+    border:2px dotted yellow;
+}
+
+
+/*
+    * Main Entry work Starts Here
+*/
+#entries-container table{
+    margin: 15px 50px;
+}
+#entries-container table *{
+    margin: 15px 30px;
+}
+tr:hover {
+    background-color: #ffff99;
+  }
+  table td{
+    padding:7px; border:#4e95f4 1px solid;
+}
+/* Define the default color for all the table rows */
+table tr{
+    background: #b8d1f3;
+}
+#entries{
+    margin-left: 9%
+}
+/*
+    *Search results styling
+/*
